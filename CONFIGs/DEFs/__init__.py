@@ -6,9 +6,9 @@ from Database import operadores
 
 def menu():
     while True:
-        print(linha())
+        print(linha)
         print('Sistema de Cadastro'.center(40))
-        print(linha())
+        print(linha)
         print('1 - Cadastrar usuário\n'
               '2 - Cadastrar produto\n'
               '3 - Visualizar usuários\n'
@@ -42,10 +42,10 @@ def menu():
         elif opcao == 8:
             excluir_produto()
         elif opcao == 0:
-            print(linha())
+            print(linha)
             print('ENCERRANDO PROGRAMA...')
             print('Muito Obrigado! Volte Sempre!')
-            print(linha())
+            print(linha)
             break
         else:
             print('Opção inválida!')
@@ -64,9 +64,9 @@ def pergunta_continuar(msg):
 
 def cadastrar_usuario():
     while True:
-        print(linha())
+        print(linha)
         print('CADASTRO DE USUÁRIO'.center(40))
-        print(linha())
+        print(linha)
         try:
             nome = input('Digite o nome do usuário: ')
             email = input('Digite o email do usuário: ')
@@ -87,9 +87,9 @@ def cadastrar_usuario():
 
 def cadastrar_produto():
     while True:
-        print(linha())
+        print(linha)
         print('CADASTRO DE PRODUTO'.center(40))
-        print(linha())
+        print(linha)
         try:
             nome = input('Digite o nome do produto: ')
             valor = float(input('Digite o valor do produto: '))
@@ -116,9 +116,9 @@ def visualizar_produtos():
 
 
 def atualizar_usuarios():
-    print(linha())
+    print(linha)
     print('Atualizar Cadastro de Usuários'.center(40))
-    print(linha())
+    print(linha)
 
     try:
         id_usuario = int(input('ID do Usuário: '))
@@ -133,9 +133,9 @@ def atualizar_usuarios():
 
 
 def atualizar_produtos():
-    print(linha())
+    print(linha)
     print('Atualizar Cadastro de Produtos'.center(40))
-    print(linha())
+    print(linha)
 
     try:
         id_produto = int(input('ID do Produto: '))
