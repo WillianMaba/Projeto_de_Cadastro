@@ -1,15 +1,14 @@
 from time import sleep
 from CONFIGs.Interface import *
 from Database import operadores
-from Database.operadores import visualizar_usuarios, visualizar_produtos, atualizar_usuario, atualizar_produto, \
-    excluir_usuario, excluir_produto
+
 
 
 def menu():
     while True:
-        print(linha)
+        print(linha())
         print('Sistema de Cadastro'.center(40))
-        print(linha)
+        print(linha())
         print('1 - Cadastrar usuário\n'
               '2 - Cadastrar produto\n'
               '3 - Visualizar usuários\n'
@@ -23,19 +22,21 @@ def menu():
             opcao = int(input('Escolha sua opção: '))
         except ValueError:
             print('Digite apenas uma das opções acima!')
+            continue
+
 
         if opcao == 1:
-            Cadastrar_Usuário()
+            cadastrar_usuario()
         elif opcao == 2:
-            Cadastrar_Produto()
+            cadastrar_produto()
         elif opcao == 3:
             visualizar_usuarios()
         elif opcao == 4:
             visualizar_produtos()
         elif opcao == 5:
-            atualizar_usuario()
+            atualizar_usuarios()
         elif opcao == 6:
-            atualizar_produto()
+            atualizar_produtos()
         elif opcao == 7:
             excluir_usuario()
         elif opcao == 8:
@@ -61,16 +62,19 @@ def pergunta_continuar(msg):
             print('Digite Apenas S, N, Sim, Não')
 
 
-def Cadastrar_Usuário():
+def cadastrar_usuario():
     while True:
-        print(linha)
+        print(linha())
         print('CADASTRO DE USUÁRIO'.center(40))
-        print(linha)
+        print(linha())
         try:
-            ID = int(input('Escolha a ID do usuário: '))
             nome = input('Digite o nome do usuário: ')
             email = input('Digite o email do usuário: ')
             idade = int(input('Digite sua idade: '))
+            valido, msg = operadores.validar_usuario(nome, email, idade)
+            if not valido:
+                print(f'⚠️ {msg}')
+                continue
             operadores.cadastrar_usuarios(nome, email, idade)
             print(f'Usuário {nome} cadastrado com sucesso!')
             sleep(2)
@@ -81,22 +85,25 @@ def Cadastrar_Usuário():
 
 
 
-def Cadastrar_Produto():
+def cadastrar_produto():
     while True:
-        print(linha)
+        print(linha())
         print('CADASTRO DE PRODUTO'.center(40))
-        print(linha)
+        print(linha())
         try:
-            ID = int(input('Escolha a ID do produto: '))
-            nome = input('Digite o nome do usuário: ')
+            nome = input('Digite o nome do produto: ')
             valor = float(input('Digite o valor do produto: '))
             descricao = input('Descrição do produto: ')
+            valido, msg = operadores.validar_produto(nome, valor, descricao)
+            if not valido:
+                print(f'⚠️ {msg}')
+                continue
             operadores.cadastrar_produtos(nome, valor, descricao)
             print(f'Produto {nome} cadastrado com sucesso!')
             sleep(2)
         except Exception as e:
             print('Erro ao cadastrar Produto! Tente novamente!')
-        if pergunta_continuar('Deseja cadastrar novo usuário? [S/N]: ') == 'n':
+        if pergunta_continuar('Deseja cadastrar novo produto? [S/N]: ') == 'n':
             break
 
 def visualizar_usuarios():
@@ -108,10 +115,38 @@ def visualizar_produtos():
     input('Pressione ENTER para voltar ao menu...')
 
 
-def  atualizar_usuario():
+def atualizar_usuarios():
+    print(linha())
+    print('Atualizar Cadastro de Usuários'.center(40))
+    print(linha())
+
+    try:
+        id_usuario = int(input('ID do Usuário: '))
+        nome = input('Novo Nome: ')
+        email = input('Novo Email: ')
+        idade = int(input('Nova Idade: '))
+        operadores.atualizar_usuario(id_usuario, nome, email, idade)
+        print('✅ Registro atualizado com sucesso!')
+        sleep(1)
+    except ValueError:
+        print('⚠️ Idade e ID devem ser números!')
 
 
-def atualizar_produto():
+def atualizar_produtos():
+    print(linha())
+    print('Atualizar Cadastro de Produtos'.center(40))
+    print(linha())
+
+    try:
+        id_produto = int(input('ID do Produto: '))
+        nome = input('Novo Nome: ')
+        valor = float(input('Novo valor: '))
+        descricao = input('Nova Descrição: ')
+        operadores.atualizar_produto(id_produto, nome, valor, descricao)
+        print('✅ Registro atualizado com sucesso!')
+        sleep(1)
+    except ValueError:
+        print('⚠️ ID e Valor devem ser números.')
 
 
 def excluir_usuario():

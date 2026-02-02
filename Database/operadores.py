@@ -88,7 +88,38 @@ def visualizar_produtos():
         con.close()
 
 
+def validar_usuario(nome, email, idade):
+    if not nome or nome.strip() == "":
+        return False, "Nome não pode ser vazio!"
+
+    if "@" not in email or "." not in email:
+        return False, "Email inválido"
+
+    if not isinstance(idade, int) or idade <= 0:
+        return False, "Idade deve ser um número inteiro positivo"
+
+    return True, ""
+
+
+def validar_produto(nome, valor, descricao):
+    if not nome or nome.strip() == "":
+        return False, "Nome do produto não pode ser vazio!"
+
+    if not isinstance(valor, (int, float)) or valor <= 0:
+        return False, "Valor deve ser maior que zero"
+
+    if not descricao or descricao.strip() == "":
+        return False, "Descrição do produto não pode ser vazio!"
+
+    return True, ""
+
+
 def atualizar_usuario(id_usuarios, nome, email, idade):
+    valido, msg = validar_usuario(nome, email, idade)
+    if not valido:
+        print(f"⚠️ {msg}")
+        return
+
     con = criarconexao()
     cur = con.cursor()
 
@@ -108,6 +139,11 @@ def atualizar_usuario(id_usuarios, nome, email, idade):
 
 
 def atualizar_produto(id_produtos, nome, valor, descricao):
+    valido, msg = validar_produto(nome, valor, descricao)
+    if not valido:
+        print(f"⚠️ {msg}")
+        return
+
     con = criarconexao()
     cur = con.cursor()
 
@@ -131,7 +167,7 @@ def excluir_usuario(id_usuarios):
     cur = con.cursor()
 
     try:
-        cur.execute('''DELETE FROM usuarios WHERE id = ?''', (id_usuarios))
+        cur.execute('''DELETE FROM usuarios WHERE id = ?''', (id_usuarios,))
         con.commit()
         if cur.rowcount > 0:
             print(f'🗑️ Usuário ID {id_usuarios} excluído com sucesso!')
@@ -147,7 +183,7 @@ def excluir_produto(id_produtos):
     cur = con.cursor()
 
     try:
-        cur.execute('''DELETE FROM produtos WHERE id = ?''', (id_produtos))
+        cur.execute('''DELETE FROM produtos WHERE id = ?''', (id_produtos,))
         con.commit()
         if cur.rowcount > 0:
             print(f'🗑️ Produtos ID {id_produtos} excluído com sucesso!')
