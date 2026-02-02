@@ -12,7 +12,6 @@ def cadastrar_usuarios(nome, email, idade):
             ''',(nome, email, idade))
 
         con.commit()
-        print(f'Usuário {nome} cadastrado com sucesso!')
     except Exception as e:
         print(f'❌ Erro ao cadastrar usuário:{e}')
     finally:
@@ -30,7 +29,6 @@ def cadastrar_produtos(nome, valor, descricao):
                 ''', (nome, valor, descricao))
 
         con.commit()
-        print(f'Produto {nome} cadastrado com sucesso!')
     except Exception as e:
         print(f'❌ Erro ao cadastrar produto:{e}')
     finally:
