@@ -48,15 +48,15 @@ def visualizar_usuarios():
         if not usuarios:
             print('⚠️ Nenhum usuário encontrado!')
         else:
-            print(linha())
+            print(linha)
             print("LISTA DE USUÁRIOS")
-            print(linha())
+            print(linha)
             for usuario in usuarios:
                 print(f"ID: {usuario[0]}")
                 print(f"Nome: {usuario[1]}")
                 print(f"Email: {usuario[2]}")
                 print(f"Idade: {usuario[3]}")
-                print(linha())
+                print(linha)
     except Exception as e:
         print("❌ Erro ao buscar usuário", e)
     finally:
@@ -73,15 +73,15 @@ def visualizar_produtos():
         if not produtos:
             print('⚠️ Nenhum produto encontrado!')
         else:
-            print(linha())
+            print(linha)
             print("LISTA DE PRODUTOS")
-            print(linha())
+            print(linha)
             for produto in produtos:
                 print(f"ID: {produto[0]}")
                 print(f"Nome: {produto[1]}")
                 print(f"Valor: {produto[2]}")
                 print(f"Descrição: {produto[3]}")
-                print(linha())
+                print(linha)
     except Exception as e:
         print("❌ Erro ao buscar produto", e)
     finally:
